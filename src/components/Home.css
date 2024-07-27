@@ -1,0 +1,83 @@
+/* Sidebar styles */
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: #F9F9F9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    transition: transform 0.3s ease;
+    z-index: 1000; /* Ensure the sidebar is above other content */
+  }
+  
+  .sidebar.hide {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.show {
+    transform: translateX(0);
+  }
+  
+  /* Toggle button styles */
+  .toggle-btn {
+    position: fixed;
+    top: 20px;
+    left: 200px; /* Adjust this value to match sidebar width */
+    z-index: 1001; /* Ensure the button is above the sidebar */
+    transition: left 0.3s ease;
+  }
+  
+  .sidebar.hide + .toggle-btn {
+    left: 0;
+  }
+  
+  .sidebar nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar nav ul li {
+    margin: 20px 0;
+  }
+  
+  .sidebar nav ul li a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  /* Content styles */
+  .content {
+    margin-left: 200px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .sidebar.hide + .toggle-btn + .content {
+    margin-left: 0;
+  }
+
+  /* Additional styles for input and button */
+input.form-control {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  button.btn-primary {
+    display: block;
+    margin: 10px auto;
+  }
+  
+  .box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .mt-4 {
+    margin-top: 1.5rem;
+  }
+  
+  
