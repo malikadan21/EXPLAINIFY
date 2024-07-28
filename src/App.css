@@ -1,5 +1,5 @@
 body {
-  background-color: #FFFFFF;
+  background-color: #121212;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -8,9 +8,14 @@ body {
   height: 100vh;
 }
 
+body {
+  background: #18042d;
+  background: -webkit-linear-gradient(to right, rgb(46, 8, 86), rgb(8, 24, 51));
+  background: linear-gradient(to right, rgb(30, 5, 56), rgb(3, 8, 17))
+}
+
 .box {
-  border: 1px solid #afabab;
-  background-color: #FFFFFF;
+  background-color: #000000;
 }
 
 .g-btn {

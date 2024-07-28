@@ -1,8 +1,13 @@
+.text-box textarea::placeholder {
+  color: white;
+  opacity: 1; 
+}
+
 /* Sidebar styles */
 .sidebar {
-    width: 200px;
+    width: 150px;
     height: 100vh;
-    background-color: #F9F9F9;
+    background-color: #292929;
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +16,7 @@
     align-items: center;
     padding-top: 20px;
     transition: transform 0.3s ease;
-    z-index: 1000; /* Ensure the sidebar is above other content */
+    z-index: 1000; 
   }
   
   .sidebar.hide {
@@ -26,8 +31,8 @@
   .toggle-btn {
     position: fixed;
     top: 20px;
-    left: 200px; /* Adjust this value to match sidebar width */
-    z-index: 1001; /* Ensure the button is above the sidebar */
+    left: 150px;
+    z-index: 1001; 
     transition: left 0.3s ease;
   }
   
@@ -46,7 +51,8 @@
   
   .sidebar nav ul li a {
     text-decoration: none;
-    color: #000;
+    color: #fefefe;
+    text-align: center;
   }
   
   /* Content styles */
@@ -59,9 +65,8 @@
     margin-left: 0;
   }
 
-  /* Additional styles for input and button */
 input.form-control {
-    max-width: 400px;
+    max-width: 600px;
     margin: 0 auto;
   }
   
@@ -70,14 +75,82 @@ input.form-control {
     margin: 10px auto;
   }
   
+  
   .box {
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     padding: 20px;
     border-radius: 5px;
   }
-  
-  .mt-4 {
-    margin-top: 1.5rem;
+    
+  .container {
+    display: flex;
+    gap: 20px;
+    border: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+    margin-left: 120px;
   }
   
+  .text-box {
+    margin-top: 100px;
+    width: 500px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #292929
+  }
   
+  textarea {
+    height: 400px;
+    resize: none;
+    border: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #292929;
+  }
+  
+  h1 {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    font-size: 50px;
+    background-image: linear-gradient(43deg, #6b83f9 0%, #FFCC70 100%);
+    background-clip: text;
+    color: transparent;
+    position: absolute; 
+    top: 50px;
+    left: 850px; 
+    transform: translate(-50%, -50%); 
+  }
+  
+  .button {
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  .explain-button {
+    background-color: 007bff;
+    font-weight: bold;
+    border: none;
+    padding: 10px 50px;
+    cursor: pointer;
+    margin-bottom: -5px;
+  }
+  
+  .explain-button:hover {
+    background-color: #005bbc;
+  }
+  
+  .logout-button {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .logout-button:hover {
+    background-color: #005bbc;
+  }

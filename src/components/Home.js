@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
 import axios from "axios";
 import "./Home.css";
 
 const Home = () => {
-  const { logOut, user } = useUserAuth();
+  const { logOut } = useUserAuth();
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(true);
   const [inputText, setInputText] = useState("");
-  const [generatedText, setGeneratedText] = useState("");
+  const [isLoading, setIsLoading] = useState(false); 
+  const [answer, setAnswer] = useState("");
+  const [, setGeneratingAnswer] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -30,66 +32,86 @@ const Home = () => {
   };
 
   const handleGenerateText = async () => {
+    if (!inputText.trim()) {
+      console.error("Input text is empty");
+      setIsLoading(false);
+      setGeneratingAnswer(false);
+      return;
+    }
+
+    setIsLoading(true);
+    setGeneratingAnswer(true);
+    setAnswer("Loading your answer... \n It might take up to 10 seconds");
+    
     try {
       const response = await axios({
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.REACT_APP_API_KEY}`,
         method: "post",
-        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBJZ3bntauZYDFyqxCPH-Om16ctymz_gwg`,
         data: {
-          prompt: inputText,
-        },
-        headers: {
-          'Content-Type': 'application/json',
+          contents: [{ parts: [{ text: inputText }] }],
         },
       });
-      setGeneratedText(response.data.generatedContent);
+      setAnswer(response.data.candidates[0].content.parts[0].text);
     } catch (error) {
-      console.error("Error generating text:", error);
+      console.log(error);
+      setAnswer("Sorry - Something went wrong. Please try again!");
+    } finally {
+      setIsLoading(false);
+      setGeneratingAnswer(false);
     }
   };
 
   return (
-    <div className="d-flex">
-      <div className={`sidebar ${showSidebar ? "show" : "hide"}`}>
-        <nav>
-          <ul>
-            <li><a style={{ fontSize: "32px" }} href="home">Cod EX</a></li>
-            <li><a href="signup">Sign Up </a></li>
-            <li><a href="/">Log In</a></li>
-            <li><a href="home">Home</a></li>
-            <li><Button variant="primary" onClick={handleLogout}>
-              Log out
-            </Button></li>
-          </ul>
-        </nav>
-      </div>
-      <Button variant="secondary" onClick={toggleSidebar} className="toggle-btn">
-        {showSidebar ? "<<" : ">>"}
-      </Button>
-      <div className="content flex-grow-1 p-4">
-        <div className="p-4 box mt-3 text-center">
-          <h1 style={{ fontSize: "32px" }}>Welcome</h1>
-          <p style={{ fontSize: "18px" }}>{user && user.email}</p>
-        </div>
-        <div className="mt-4">
-          <input
-            type="text"
-            value={inputText}
-            onChange={handleInputChange}
-            placeholder="Enter text to generate"
-            className="form-control mb-2"
-          />
-          <Button variant="primary" onClick={handleGenerateText}>
-            Generate Text
-          </Button>
-        </div>
-        {generatedText && (
-          <div className="mt-4 p-4 box">
-            <h3>Generated Text:</h3>
-            <p>{generatedText}</p>
+    <>
+      <h1 className="mt-4">AI Code Explainer App</h1>
+      <div className="d-flex">
+        <div className="container">
+          <div className="text-box rounded-4">
+            <textarea
+              id=""
+              name=""
+              placeholder="Enter your code here"
+              maxLength="100000"
+              value={inputText}
+              onChange={handleInputChange}
+              className="form-control mb-2 bg-dark text-white"
+            ></textarea>
+            <Button className="button explain-button" onClick={handleGenerateText} disabled={isLoading}>
+              {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Explain"}
+            </Button>
           </div>
-        )}
+          <div className="text-box rounded-4">
+            <textarea
+              id=""
+              name=""
+              placeholder="Explanation of your code will appear here"
+              readOnly
+              value={answer || ""}
+              className="form-control mb-2 bg-dark text-white"
+            ></textarea>
+          </div>
+        </div>
       </div>
-    </div>
+  
+      <div className={`sidebar ${showSidebar ? "show" : "hide"}`}>
+          <nav>
+            <ul>
+              <li><a href="home" style={{ fontSize: "24px" }}>EXPL<span style={{ fontWeight: "bold" }}>AI</span>NIFY</a></li>
+              <li><a href="signup">Sign Up </a></li>
+              <li><a href="/">Log In</a></li>
+              <li><a href="home">Home</a></li>
+              <li>
+                <Button className="button logout-button" onClick={handleLogout}>
+                  Log out
+                </Button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <Button variant="secondary" onClick={toggleSidebar} className="toggle-btn">
+          {showSidebar ? "<<" : ">>"}
+        </Button>
+    </>
   );
 };
 

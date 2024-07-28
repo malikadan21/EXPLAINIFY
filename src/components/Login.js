@@ -35,14 +35,16 @@ const Login = () => {
 
   return (
     <>
-      <div className="p-4 box">
-        <h2 className="mb-3">Log In</h2>
+      <div className="rounded-4 border-0 bg-dark p-4 box">
+      <h2 className=" fw-bold mb-2 text-uppercase text-center text-white">Login</h2>
+      <p className="text-white-50 mb-5 text-center">Please enter your login and password!</p>
 
         {error && <Alert variant="danger">{error}</Alert>}
 
         <Form onSubmit={handleSubmit}>
           
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3 text-start text-white" controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
               placeholder="Email address"
@@ -50,7 +52,8 @@ const Login = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3 text-start text-white" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Password"
@@ -58,7 +61,7 @@ const Login = () => {
             />
           </Form.Group>
 
-          <div className="d-grid gap-2">
+          <div className="d-grid gap-5">
             <Button variant="primary" type="Submit">
               Log In
             </Button>
@@ -73,7 +76,7 @@ const Login = () => {
           />
         </div>
       </div>
-      <div className="p-4 box mt-3 text-center">
+      <div className="rounded-4 border-0 bg-dark p-4 box mt-3 text-center text-white">
         Don't have an account? <Link to="/signup">Sign up</Link>
       </div>
     </>
