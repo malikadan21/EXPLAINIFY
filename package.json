@@ -10,6 +10,7 @@
     "@uiw/react-md-editor": "^4.0.1",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.11.10",
     "firebase": "^9.23.0",
     "react": "^17.0.2",
@@ -21,8 +22,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
